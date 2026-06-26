@@ -34,6 +34,15 @@ final class RegistryTagImpl {
         public int size() {
             return 0;
         }
+
+        @Override
+        public boolean add(RegistryKey<Object> value) { throw new UnsupportedOperationException(); }
+
+        @Override
+        public boolean remove(RegistryKey<Object> value) { return false; }
+
+        @Override
+        public void clear() { }
     }
 
     /**
@@ -66,22 +75,27 @@ final class RegistryTagImpl {
             return entries.iterator();
         }
 
-        @ApiStatus.Internal
-        void add(RegistryKey<T> key) {
-            if (entries.add(key))
-                invalidate();
+        @Override
+        public boolean add(RegistryKey<T> key) {
+            if (! entries.add(key)) {
+                return false;
+            }
+            invalidate();
+            return true;
         }
 
-        @ApiStatus.Internal
-        void remove(RegistryKey<T> key) {
-            if (entries.remove(key))
-                invalidate();
+        @Override
+        public boolean remove(RegistryKey<T> key) {
+            if (! entries.remove(key)) {
+                return false;
+            }
+            invalidate();
+            return true;
         }
 
-        private void invalidate() {
-            var process = MinecraftServer.process();
-            if (process == null) return;
-            process.connection().invalidateTags();
+        @Override
+        public void clear() {
+            entries.clear();
         }
     }
 
@@ -103,6 +117,27 @@ final class RegistryTagImpl {
         @Override
         public Iterator<RegistryKey<T>> iterator() {
             return keys.iterator();
+        }
+
+        @Override
+        public boolean add(RegistryKey<T> key) {
+            keys.add(key);
+            invalidate();
+            return true;
+        }
+
+        @Override
+        public boolean remove(RegistryKey<T> key) {
+            if (! keys.remove(key)) {
+                return false;
+            }
+            invalidate();
+            return true;
+        }
+
+        @Override
+        public void clear() {
+            keys.clear();
         }
 
         @Override

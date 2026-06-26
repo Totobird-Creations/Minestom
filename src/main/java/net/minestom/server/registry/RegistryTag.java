@@ -1,5 +1,6 @@
 package net.minestom.server.registry;
 
+import net.minestom.server.MinecraftServer;
 import net.minestom.server.codec.Codec;
 import net.minestom.server.network.NetworkBuffer;
 import org.jetbrains.annotations.Nullable;
@@ -48,5 +49,17 @@ public sealed interface RegistryTag<T> extends HolderSet<T>, Iterable<RegistryKe
     boolean contains(RegistryKey<T> value);
 
     int size();
+
+    boolean add(RegistryKey<T> value);
+
+    boolean remove(RegistryKey<T> value);
+
+    void clear();
+
+    default void invalidate() {
+        var process = MinecraftServer.process();
+        if (process == null) return;
+        process.connection().invalidateTags();
+    }
 
 }
