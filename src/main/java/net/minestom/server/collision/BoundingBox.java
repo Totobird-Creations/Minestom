@@ -85,6 +85,27 @@ public record BoundingBox(Vec relativeStart, Vec relativeEnd) implements Shape {
     }
 
     /**
+     * Creates a new {@link BoundingBox} with a scaled size.
+     *
+     * @param x the X factor
+     * @param y the Y factor
+     * @param z the Z factor
+     * @return a new bounding box scaled
+     */
+    public BoundingBox scale(double x, double y, double z) {
+        return new BoundingBox(width() * x, height() * y, height() * z);
+    }
+    /**
+     * Creates a new {@link BoundingBox} with a scaled size.
+     *
+     * @param factor the scale factor
+     * @return a new bounding box scaled
+     */
+    public BoundingBox scale(double factor) {
+        return scale(factor, factor, factor);
+    }
+
+    /**
      * Creates a new {@link BoundingBox} with an offset.
      *
      * @param offset the offset

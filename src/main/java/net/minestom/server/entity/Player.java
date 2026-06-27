@@ -32,6 +32,7 @@ import net.minestom.server.command.CommandSender;
 import net.minestom.server.component.DataComponents;
 import net.minestom.server.coordinate.*;
 import net.minestom.server.dialog.Dialog;
+import net.minestom.server.entity.attribute.Attribute;
 import net.minestom.server.entity.metadata.LivingEntityMeta;
 import net.minestom.server.entity.metadata.avatar.PlayerMeta;
 import net.minestom.server.entity.vehicle.PlayerInputs;
@@ -870,6 +871,7 @@ public class Player extends LivingEntity implements CommandSender, HoverEventSou
     private boolean canFitWithBoundingBox(EntityPose pose) {
         BoundingBox bb = pose == EntityPose.STANDING ? boundingBox : BoundingBox.fromPose(pose);
         if (bb == null) return false;
+        bb = bb.scale(getAttributeValue(Attribute.SCALE));
 
         var position = getPosition();
         var iter = bb.getBlocks(getPosition());

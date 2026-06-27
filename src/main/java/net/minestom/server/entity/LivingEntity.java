@@ -744,4 +744,9 @@ public class LivingEntity extends Entity implements EquipmentHandler {
     public Acquirable<? extends LivingEntity> acquirable() {
         return (Acquirable<? extends LivingEntity>) super.acquirable();
     }
+
+    @Override
+    public BoundingBox getBoundingBox() {
+        return super.getBoundingBox().scale(getAttributeValue(Attribute.SCALE));
+    }
 }
