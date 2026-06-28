@@ -791,8 +791,17 @@ public class Entity implements Viewable, Tickable, Schedulable, Snapshotable, Ev
      * @return the entity bounding box
      */
     public BoundingBox getBoundingBox() {
+        return this.getBoundingBox(getPose());
+    }
+    /**
+     * Returns the current bounding box (based on a given pose).
+     * Is used to check collision with coordinates or other blocks/entities.
+     *
+     * @return the entity bounding box
+     */
+    public BoundingBox getBoundingBox(EntityPose pose) {
         // Check if there is a specific bounding box for this pose
-        BoundingBox poseBoundingBox = BoundingBox.fromPose(getPose());
+        BoundingBox poseBoundingBox = BoundingBox.fromPose(pose);
         return poseBoundingBox == null ? boundingBox : poseBoundingBox;
     }
 

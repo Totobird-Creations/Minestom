@@ -746,7 +746,7 @@ public class LivingEntity extends Entity implements EquipmentHandler {
     }
 
     @Override
-    public BoundingBox getBoundingBox() {
-        return super.getBoundingBox().scale(getAttributeValue(Attribute.SCALE));
+    public BoundingBox getBoundingBox(EntityPose pose) {
+        return super.getBoundingBox(pose).scale(getAttributeValue(Attribute.SCALE));
     }
 }

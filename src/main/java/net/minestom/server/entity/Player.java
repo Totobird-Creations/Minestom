@@ -869,9 +869,7 @@ public class Player extends LivingEntity implements CommandSender, HoverEventSou
      * @param pose The pose to check
      */
     private boolean canFitWithBoundingBox(EntityPose pose) {
-        BoundingBox bb = pose == EntityPose.STANDING ? boundingBox : BoundingBox.fromPose(pose);
-        if (bb == null) return false;
-        bb = bb.scale(getAttributeValue(Attribute.SCALE));
+        BoundingBox bb = getBoundingBox(pose);
 
         var position = getPosition();
         var iter = bb.getBlocks(getPosition());
