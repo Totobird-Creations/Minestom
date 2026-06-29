@@ -93,7 +93,7 @@ public record BoundingBox(Vec relativeStart, Vec relativeEnd) implements Shape {
      * @return a new bounding box scaled
      */
     public BoundingBox scale(double x, double y, double z) {
-        return new BoundingBox(width() * x, height() * y, height() * z);
+        return new BoundingBox(width() * x, height() * y, depth() * z);
     }
     /**
      * Creates a new {@link BoundingBox} with a scaled size.
